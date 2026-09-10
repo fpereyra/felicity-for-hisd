@@ -1,0 +1,4 @@
+- 2026-09-10T20:45:20Z attempting packet download from https://houstonisd.legistar.com/View.ashx?M=PA&ID=1423079&GUID=BEE3A63D-B381-4DD3-8524-67E3D8C8413E
+- 2026-09-10T20:45:20Z page count 7 <= 20; refusing (partial packet?)
+- 2026-09-10T20:46:01Z attempting packet download from https://houstonisd.legistar.com/View.ashx?M=PA&ID=1423079&GUID=BEE3A63D-B381-4DD3-8524-67E3D8C8413E
+- 2026-09-10T20:46:01Z OK pages=7 bytes=418154 sha256=92c09af0e9563e04994d568ad2cb93d182aee59049c4833a407a714803697011 created='Fri Aug 21 19:38:15 2026 UTC'
