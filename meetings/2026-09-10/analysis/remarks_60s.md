@@ -1,33 +1,31 @@
 # 60-second remarks — 2026-09-10
 
-**Status: news-only draft.** Built on claims tagged `[REPORTED]` or `[REPORTED-snippet]` in `claim_ledger.md`. Before speaking, verify two things by opening the linked stories: (1) that TEA's letter is dated July 7 and orders family meetings *before* reassignment; (2) that the corrective-action deadline is **October 9**. If either cannot be confirmed, use the fallback lines below.
-
-One argument: the state set a compliance deadline, and the district holds the numbers that show whether it is being met.
+One argument: item 11 lowers the special-education targets on consent, and the cover sheet does not say so. Every fact below is `[DOC]` (packet pages 51, 55, 59, 68, 102–104) except the commissioner's quote, which is `[REPORTED]` (Houston Public Media, Aug 17).
 
 ---
 
-Good evening. I'm Felicity Pereyra, elected trustee for District I.
+Good evening. Felicity Pereyra, elected trustee, District I.
 
-I have one question tonight, and I'd like it answered on the record.
+First, the ratings. Two hundred five A and B campuses, up from ninety-three. Credit where it is due.
 
-In July, the Texas Education Agency wrote to this district that its special-education reassignments were out of compliance with federal law. The agency ordered the district to review each affected student's plan and to meet with families *before* moving them. Reporting says it set a deadline: October ninth. After that, further sanctions are on the table.
+Now, item 11, on consent. The cover sheet says it revises nine progress measures. The attachment revises eleven. The two it does not mention are the two for students with disabilities.
 
-The district said it would hold those meetings "as needed," during the year. Students moved on August tenth. October ninth is four weeks from tonight.
+Tonight's own monitoring report says growth for students with disabilities is Not Met. Math growth: Not Met. Item 11 answers that by lowering the 2028 math target from fifty-eight to fifty-five, and by changing the reading target from "increase to fifty-five" to "remain at fifty-five." Reading is already at fifty-six. The new target sits below where the district is today.
 
-So, of the roughly five thousand students the district itself said it would reassign: how many had a meeting with their family before the move? How many have had one since? How many are still waiting?
+The commissioner said last month that special education is a primary goal for ending this intervention.
 
-Three numbers. The district has them. The state is waiting on them. The families are waiting on them.
+So, one request. Pull item 11 from consent, or amend the cover sheet so the public can see that the special-education targets are being lowered, and vote on that in the open.
 
-Please put them in the record tonight. Thank you.
+Thank you.
 
 ---
 
 ## Delivery notes
-- **Pause** after "on the record." Let the room settle before the July sentence.
-- **Slow down** on "before moving them." That word is the whole argument.
-- **Pause** after "four weeks from tonight." Count two.
-- **Say the three questions slowly, evenly**, no rising emphasis. They are a list, not an accusation.
-- **If time runs short**, cut: "The district said it would hold those meetings 'as needed,' during the year." and "The state is waiting on them. The families are waiting on them."
-- **Fallback if the Oct 9 date is unconfirmed:** replace "Reporting says it set a deadline: October ninth" with "and it set a deadline this fall," and replace "October ninth is four weeks from tonight" with "That deadline is weeks away."
-- **Fallback if "violate federal law" wording is unconfirmed:** say "the agency found the district out of compliance with what it had been ordered to do."
-- Never say "illegal." The statement never does.
+- **Slow** on "The two it does not mention are the two for students with disabilities." That is the sentence.
+- **Pause** after "Not Met. Math growth: Not Met." Count one.
+- Say the numbers plainly: "fifty-eight to fifty-five." Do not say "31 percent" here; save it for follow-up if the district cites the gain.
+- **Pause** before "So, one request."
+- **If time runs short**, cut the commissioner sentence first, then "Reading is already at fifty-six. The new target sits below where the district is today."
+- **If challenged on NWEA re-norming**: "Re-baselining changes the metric. It does not require lowering the 2028 endpoint. Your own November item said 4.1 and 4.2 needed no revision."
+- **If challenged that 4.1's endpoint is unchanged at 55**: "It was a target to reach. It is now a floor the district is already above."
+- Never say "hiding." Say "the cover sheet omits."

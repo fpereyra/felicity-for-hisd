@@ -1,42 +1,43 @@
-# Briefing — HISD Regular Board Meeting, 2026-09-10
+# Briefing — HISD School Board, Thursday 2026-09-10, 5:00 PM
 
 ## Big picture
-The agenda packet could not be retrieved: this session's network policy blocks houstonisd.legistar.com and every news, HISD, and TEA domain, so **nothing in this briefing describes what the board is voting on tonight**. The strongest live thread is special education: the state found the district out of compliance in July, reporting says corrective action is due October 9, and the superintendent and commissioner have both tied the end of the takeover to this exact issue. The district has real, concede-able gains in the August ratings (a second B year, Wheatley's first A). The one question that requires a numeric answer tonight, and that no packet is needed to ask, is how many reassigned special-education students had a family meeting before they moved.
+The packet's own numbers say growth for students with disabilities is Not Met, and the consent agenda responds by lowering the special-education targets with a cover sheet that does not mention them, in the same month the state made special-education compliance a condition of ending the takeover and set an early-October deadline. The ratings gains are real and should be conceded first: 205 A/B campuses, 13 D/F, zero multi-year failures as TEA counts them. Beneath that, the consent agenda removes oversight in three places: the school-naming committee becomes optional, the monitoring calendar loses a month and a measure, and the library-book approvals show, for a second month, a program that reaches zero NES campuses. The one request that cannot be spun: pull item 11 from consent or amend its cover sheet.
 
-## Packet status: NOT ACQUIRED
-- Target: `https://houstonisd.legistar.com/View.ashx?M=PA&ID=1315010&GUID=0BAA0864-ABEE-4DAC-86F6-80CD2882F80F` (supplied by trustee; also the calendar page).
-- Result: `curl: (56) CONNECT tunnel failed, response 403` from the egress proxy; the calendar scraper failed the same way. Full log in `acquisition_log.md`.
-- Side channels checked: no packet on the git remote, in Google Drive (PDFs since Sept 1), or as a Gmail attachment (35 days).
-- Per the runbook, no inventory, redline, quantitative, or flag analysis was attempted. Phases 3–6 are not started.
-- **To unblock:** allow `houstonisd.legistar.com` (and `*.legistar1.com`) in the environment's egress policy, then run `scripts/fetch_calendar.py --years 2025 2026` and `scripts/fetch_packet.sh 2026-09-10`. Alternatively commit the PDF to `meetings/2026-09-10/packet/AgendaPacket.pdf` on this branch.
+## Packet status
+Acquired from Legistar (calendar-resolved URL), 136 pages, created 2026-09-09, SHA256 `7a70bd93…` in `packet/manifest.txt`. August 13 (161 pp), 20 and 27 archived for context. Full inventory in `inventory.md`; redlines from page images in `redlines.md`; arithmetic in `verification.md`.
 
-## Item inventory
-Not available. Community Voices for Public Education states the agenda has items 1–18 and is mobilizing on libraries, Grimes Park, and a curriculum for students with disabilities. That is an advocacy characterization and is **not** an inventory.
+## Item inventory (short form)
+Reports 1–5: audit committee (internal audit firm RSM → Protiviti; Oracle audit deferred to FY2028); TASB Update 127; **Goals 3–4 monitoring (Goal 4 Not Met, 4.2 Not Met)**; **Constraints (CPM 2.1 at 97.7% vs 100%, "In Progress")**; investment report (general-fund investments −$108M YoY).
+Consent 6–18: minutes; **monitoring calendar revision**; **FOC(LOCAL) new** (DAEP appeal ends at department director); **FOD(LOCAL) new** (expulsion appeal to Board); pre-K partnership site amendment (57 enrolled / 193 projected); **GPM target revisions incl. 4.1/4.2**; **EHBB(LOCAL)** (bans SES in GT matrix); CTE certifying agencies ($1.5M, the only new ceiling); **library books** (337 titles, 7 non-NES campuses); vendor name changes ($0); **DJ(LOCAL) deletion**; **CW(LOCAL) naming** (committee optional, deceased-only rule and naming-rights regulation requirement deleted); **FFF(LOCAL)** (SB 571; improvement).
+Superintendent report: **Special Education Success Program Update — no attachment.**
+Closed session: personnel; HFT v. Miles; EEOC v. HISD; **Roth v. State of Texas (Ten Commandments, HISD a defendant)**; Feb 27, 2020 federal law-enforcement update (standing); intruder-detection audit.
+No second readings this month; six first readings return 2026-10-08.
 
-## Flags (ranked by strength)
-No packet-based flags. News-derived candidates to test the moment the packet is in:
-1. **Oversight-reducing / procedurally irregular:** any item touching the Grimes Park lease termination or the Southside Launchpad project. Check whether it is on consent, whether a prior authorization is cited, and the funding source.
-2. **Inequitable / contrary to research:** any item adopting a district-built curriculum for STAAR-Alt students (reported from leaked slides). Check for evidence of field testing, alignment review, and who approved it.
-3. **Oversight-reducing:** any special-education monitoring report. Check for blank ARD/IEP-meeting counts or "in progress" fields; that is the exact data the state's October deadline turns on.
-4. **Anti-teacher / inequitable:** any librarian or library-services staffing item.
-5. **Procedurally irregular:** any 1882 partnership contract amendment (June re-approval after TEA found missing details establishes the pattern).
+## Flags, ranked (full text with counters in `flags.md`)
+1. **Item 11 lowers SPED targets on consent; cover sheet omits 4.1/4.2.** Math 2028 target 58 → 55; reading "increase to 55" → "remain at 55" with current at 56. November's proposal said these two needed no revision. `[DOC]`
+2. **"31% gain" headline contradicts the packet's own comparability caveat.** Same slide footnotes the algorithm change; item 11 says the change invalidates year-over-year comparison. Relative framing recurs (NES TSI "50%" = 6 → 9). `[DOC]`
+3. **CPM 2.1 initial-ARD timeliness 97.7% vs 100%, labeled "In Progress."** ≈ 90 initial ARDs outside the federal timeline by the district's own percentages; preliminary data. `[DOC]`
+4. **Library approvals reach zero NES campuses, two months running.** 0 of 10 distinct campuses vs 47.5% NES districtwide; half not Title I. Mechanism: librarians submit orders; NES campuses lost librarian positions in 2023. `[DOC]` + HISD GIS layer.
+5. **CW(LOCAL):** direct board naming, optional committee, deceased-only rule gone, naming-rights regulation requirement gone; three months after the board named a $182.5M center sited on Grimes Park. `[DOC]`; context `[REPORTED]`.
+6. **EHBB(LOCAL)** bans SES scoring in GT identification "to align with TEA," uncited; SES-sensitive identification is the evidence-based lever for under-identification (Card & Giuliano 2016; Peters et al. 2019). Contested on weighting, not on direction. `[DOC]`
+7. **FOC(LOCAL):** DAEP appeal final at the Student Discipline director; placement in effect during appeal; FOD gets a Board level. Statute permits; ask for the SCOC route it replaces and disproportionality data.
+8. **Monitoring calendar:** December becomes "no report"; dedicated GPM 3.2 report removed (12th-grade on-track fell 38 → 27 under the new definition).
+9. **Pre-K amendment:** 29.5% of projected enrollment; three centers at zero; new sites unmarked; cost "None."
 
-## News (window 2026-08-06 → 2026-09-10; headline/snippet level only)
-- **Ratings (Aug 13–14):** HISD held a B for a second year; Wheatley earned its first A; reported campus distribution 92 A / 113 B / 46 C / 9 D / 5 F / 7 not rated (verify). One source says Miles referred to four F elementaries; resolve the 4-vs-5 discrepancy on TXschools before quoting.
-- **Takeover exit (Aug 14–late Aug):** Morath: "relatively soon." Miles: expects end after 2026-27; Morath decision expected June 2027. Reported exit criteria: no consecutive D/F campuses, improved board governance, SPED compliance. Three campuses reportedly had back-to-back D/F.
-- **Special education (letter July 7; coverage into August):** TEA letter says changes violate student rights; ordered IEP reviews, family meetings before moves, training; monthly reports; Oct 9 deadline with possible further sanctions; conservators directed to review the ~5,000-student plan. District said meetings "as needed" during the year. OCR investigation opened in May; status unknown.
-- **Grimes Park / Southside Launchpad (Aug–Sept):** HISD ended lease early; City removing ~$1.3M of improvements; council members questioned the arrangement. Project figures (~$100M, 2028) come only from a construction listing and are not citable.
-- **Miles consulting (Aug):** Texas Observer: Miles cancelled a paid Third Future Schools agreement after the Observer obtained it; ~$190K over three years reported.
-- **Workforce (Texas Monthly, Aug issue):** ~1/3 of teachers left in each of two post-takeover years; first-year teachers up ~65%; >20% uncertified at start of 2025-26. Verify denominators.
-- **Meals (Community Impact, Aug):** 33 campuses not automatically on free meals in 2026-27.
-- **Advocacy:** CVPE calling speakers for tonight on libraries, Grimes Park, disability curriculum.
-- **Not found in window:** new litigation, new TEA orders beyond ratings, a Chronicle agenda preview.
+Conceded gains: B rating held; A/B campuses 93 → 205; D/F 120 → 13; no multi-year failures; Goal 3 beat target (28% vs 26%); ARD compliance 87 → 97.7 since 2022-23; independent IEP reviews 18% vs 16%; FFF and FOD are improvements.
 
-Full source table: `../news/sources.md`. Tagged claims and the say/attribute/do-not-say lists: `claim_ledger.md`.
+## News (window Aug 6 – Sep 10; article-level where marked in `news/sources.md`)
+- **Takeover exit** (HPM 08-17, Chronicle 08-25, read): Morath, "relatively soon"; Miles, "the official end may be the end of this school year"; decision June 2027; trustees return three at a time over three years. Exit criteria: no consecutive failing campuses, "improved board governance" (undefined publicly), SPED "in full compliance." Morath: SPED "one of the primary goals for them over the course of this school year."
+- **Ratings** (HPM 08-14, read): 92 A / 113 B / 46 C / 9 D / 5 F / 7 NR of 272; B held. Five F campuses avoided multi-year status (HPM 08-17). Packet shows 13 D/F (preliminary) vs 14 in the release; reconcile.
+- **Special education** (Chronicle 07-10, 07-24; HPM 07-14; Houston Press 07-25, all read): July 7 TEA letter found two IDEA violations; "cannot unilaterally amend a student's IEP"; students "cannot be moved… until the IEP team has met"; ordered IEP reviews for harmful effects, family meetings before moves, training; initial report Aug 1, final report **Oct 9** (Houston Press: Oct 8) or "additional interventions or sanctions." HISD: location ≠ placement; meetings "as needed" during the year; phone calls to ~5,000 families to "amend" IEPs. OCR investigation open since May.
+- **Grimes Park / Southside Launchpad** (Chronicle 08-28, ABC13, read): HISD terminated a ~30-year park agreement early; board had approved borrowing $182.5M; site disclosed later; Sunnyside residents "did not know it would lose its park"; City removing ~$1.3M in improvements; construction expected March. Board named the center May 14; demolition contract June 11 (calendar).
+- **Litigation:** Roth v. State of Texas (SB 10 Ten Commandments), filed July 30, TRO denied Aug 7, HISD a defendant; on tonight's closed session.
+- **Correction from the earlier draft:** the Texas Observer Miles-consulting story is April 15, 2026, outside the window; do not present it as recent.
+- **Advocacy:** CVPE mobilizing on libraries, Grimes Park, disability curriculum (site blocked; snippet only).
 
 ## Verification notes
-**Confirmed directly:** nothing. No primary document was opened in this session.
-**Confirmed at headline level (named outlet's headline states it):** TEA letter says SPED changes violate student rights (HPM); Morath "relatively soon" (Chronicle, HPM); Miles expects end after this year (Chronicle, Houston Press); HISD stays at B (K-12 Dive); OCR investigation opened (HPM, Texas Tribune); Grimes Park lease ended and $1.3M removal (ABC13); Miles cancelled Third Future contract (Texas Observer); $2B budget / $25M deficit (Chronicle); 1882 contracts re-approved after missing details (Chronicle).
-**Snippet-level only (attribute, verify before asserting):** July 7 date; October 9 deadline; the three ordered actions; ~5,000 students; rating counts; three consecutive-D/F campuses; Texas Monthly workforce figures; 33 CEP campuses; pay bands.
-**Could not access:** Legistar (packet, calendar, prior packets); houstonisd.org; tea.texas.gov; all news domains; CVPE's Sept 10 post.
-**Longitudinal baseline:** none exists in this repo. This is the first meeting archived; the "recurring pattern" tracking starts with the next run.
+**Confirmed directly (`[DOC]`):** every packet page cited; all six policy redlines from rendered images; chart values for Figs 10, 12, 22, 24, 25, 27, 30, 31, 33, 35, 36 from images; November 2025 calendar and GPM proposal from that packet; August 13 agenda and library list; May 14 and June 11 agenda titles; HISD GIS layer attributes for 10 campuses and district denominators.
+**Confirmed at article level (`[REPORTED]`):** TEA letter date, findings, orders, deadlines (Chronicle, HPM); exit criteria and quotes (HPM, Chronicle); ratings counts (HPM); Grimes Park facts (Chronicle, ABC13); phone-amendment practice (Houston Press).
+**Snippet only:** K-12 Dive B rating; Texas Monthly workforce figures; Community Impact meals; CVPE posts; KPRC 2023 librarian cuts.
+**Could not verify:** which pre-K sites are new (no prior Appendix 8 in any retrieved packet); TEA citation for the SES prohibition; cause of the 13-vs-14 D/F discrepancy; whether HISD's Aug 1 report to TEA is public; economic disadvantage beyond the Title I proxy (Is_CEP unpopulated in the GIS layer); the "three consecutive D/F campuses" snippet (contradicted; do not use).
+**Longitudinal baseline:** first archived meeting. Patterns to carry forward: (1) target revisions on consent with incomplete cover sheets; (2) relative-percent framing in monitoring takeaways; (3) constraint statuses that avoid "Not Met"; (4) library approvals as a census of librarian staffing; (5) policy revisions that make committees optional and delete regulation requirements.
