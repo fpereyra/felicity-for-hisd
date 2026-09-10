@@ -1,0 +1,8 @@
+file: AgendaPacket.pdf
+meeting_date: 2026-08-27
+source_url: https://houstonisd.legistar.com/View.ashx?M=PA&ID=1423079&GUID=BEE3A63D-B381-4DD3-8524-67E3D8C8413E
+retrieved_utc: 2026-09-10T20:46:01Z
+sha256: 92c09af0e9563e04994d568ad2cb93d182aee59049c4833a407a714803697011
+bytes: 418154
+pages: 7
+pdf_creation_date: Fri Aug 21 19:38:15 2026 UTC

@@ -35,10 +35,11 @@ fi
 head -c 5 "$OUT.part" | grep -q '%PDF' || { note "downloaded file is not a PDF (magic bytes)"; rm -f "$OUT.part"; exit 4; }
 mv "$OUT.part" "$OUT"
 PAGES=$(pdfinfo "$OUT" | awk '/^Pages:/{print $2}')
-CREATED=$(pdfinfo "$OUT" | awk -F': *' '/^CreationDate:/{print $2}')
+CREATED=$(pdfinfo "$OUT" | sed -n 's/^CreationDate: *//p')
 SHA=$(sha256sum "$OUT" | cut -d' ' -f1)
 SIZE=$(stat -c %s "$OUT")
-(( PAGES > 20 )) || { note "page count $PAGES <= 20; refusing (partial packet?)"; exit 5; }
+MIN_PAGES="${MIN_PAGES:-20}"   # regular packets are >20 pages; set MIN_PAGES=1 for special-meeting packets
+(( PAGES >= MIN_PAGES )) || { note "page count $PAGES < MIN_PAGES=$MIN_PAGES; refusing (partial packet?). Override with MIN_PAGES=1 if this is a short special-meeting packet."; rm -f "$OUT"; exit 5; }
 cat > "$DIR/manifest.txt" <<M
 file: AgendaPacket.pdf
 meeting_date: $DATE

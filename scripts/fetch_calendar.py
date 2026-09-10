@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Scrape the HISD Legistar calendar into meetings/calendar.{json,md}.
 
-Usage: python3 scripts/fetch_calendar.py [--years 2025 2026 ...] [--out meetings]
+Usage: python3 scripts/fetch_calendar.py [--years "All Years" | 2025 2026 ...] [--out meetings]
 
 Stdlib only. For each meeting row captures: date, time, name, location,
 meeting-detail URL, and the View.ashx links: agenda (M=A), packet (M=PA),
 minutes (M=M), plus video if present.
 
-Legistar's year selector is an ASP.NET postback; we replay it with the
-page's __VIEWSTATE tokens. If the postback fails we fall back to whatever
-the default GET view shows and say so on stderr.
+The default GET shows only the current month. The year selector is a
+Telerik RadComboBox inside an ASP.NET form; we replay its postback with the
+page's __VIEWSTATE tokens, selecting "All Years" by default. If the postback
+fails we fall back to the default view and say so on stderr.
 """
 import argparse, html, json, re, sys, urllib.parse, urllib.request
 from datetime import datetime
@@ -58,7 +59,9 @@ def parse_rows(page):
     out = []
     for row in p.rows:
         allhrefs = [h for _, hs in row for h in hs]
-        if not any("MeetingDetail.aspx" in h for h in allhrefs):
+        # keep rows that are meetings: a MeetingDetail link, or (future meetings) a body-name cell + a date cell
+        has_date = any(re.fullmatch(r"\d{1,2}/\d{1,2}/\d{4}", t) for t, _ in row)
+        if not (any("MeetingDetail.aspx" in h for h in allhrefs) or (has_date and any("DepartmentDetail" in h for h in allhrefs))):
             continue
         texts = [t for t, _ in row]
         rec = {"name": "", "date": "", "time": "", "location": ""}
@@ -67,10 +70,10 @@ def parse_rows(page):
                 rec["date"] = datetime.strptime(t, "%m/%d/%Y").date().isoformat()
             elif not rec["time"] and re.fullmatch(r"\d{1,2}:\d{2} [AP]M", t):
                 rec["time"] = t
-        # name = text of the cell holding the MeetingDetail link
+        # name = first cell (body name, carries the DepartmentDetail link); detail link is a later cell
+        rec["name"] = row[0][0]
         for t, hs in row:
             if any("MeetingDetail.aspx" in h for h in hs):
-                rec["name"] = t
                 rec["detail_url"] = urllib.parse.urljoin(BASE, [h for h in hs if "MeetingDetail" in h][0])
         # location: the longest cell that isn't name/date/time and has no links
         cands = [t for t, hs in row if not hs and t not in (rec["date"], rec["time"]) and not re.fullmatch(r"\d{1,2}/\d{1,2}/\d{4}", t)]
@@ -81,7 +84,7 @@ def parse_rows(page):
             m = (q.get("M") or [""])[0].upper()
             if "View.ashx" in u:
                 key = {"A": "agenda_url", "PA": "packet_url", "M": "minutes_url",
-                       "AADA": "agenda_ada_url", "PADA": "packet_ada_url"}.get(m)
+                       "AADA": "agenda_ada_url", "PADA": "packet_ada_url", "IC": "ical_url"}.get(m)
                 if key: rec[key] = u
             elif "Video.aspx" in u or "granicus" in u.lower():
                 rec.setdefault("video_url", u)
@@ -93,32 +96,34 @@ def hidden_fields(page):
     return dict(re.findall(r'<input type="hidden" name="(__[A-Z]+)"[^>]*value="([^"]*)"', page))
 
 
-def fetch_year(year, base_page):
-    """Replay the year-dropdown postback. Returns page HTML or None."""
-    hid = hidden_fields(base_page)
+def fetch_view(selection, base_page):
+    """Replay the Telerik year-dropdown postback (e.g. "All Years", "2026"). Returns HTML or None."""
+    hid = {k: html.unescape(v) for k, v in hidden_fields(base_page).items()}
     if "__VIEWSTATE" not in hid:
         return None
-    sel = re.search(r'name="(ctl00\$ContentPlaceHolder1\$lstYears)"', base_page)
-    if not sel:
-        return None
+    bodies = re.findall(r'name="ctl00\$ContentPlaceHolder1\$lstBodies"[^>]*value="([^"]*)"', base_page)
     form = dict(hid)
-    form["__EVENTTARGET"] = sel.group(1)
+    form["__EVENTTARGET"] = "ctl00$ContentPlaceHolder1$lstYears"
     form["__EVENTARGUMENT"] = ""
-    form[sel.group(1)] = str(year)
-    # Telerik combobox mirrors the value in a *_ClientState field
-    cs = re.search(r'name="(ctl00\$ContentPlaceHolder1\$lstYears_ClientState)"', base_page)
-    if cs:
-        form[cs.group(1)] = json.dumps({"logEntries": [], "value": str(year), "text": str(year), "enabled": True})
+    form["ctl00$ContentPlaceHolder1$lstYears"] = selection
+    form["ctl00_ContentPlaceHolder1_lstYears_ClientState"] = json.dumps(
+        {"logEntries": [], "value": selection, "text": selection, "enabled": True,
+         "checkedIndices": [], "checkedItemsTextOverflows": False})
+    form["ctl00$ContentPlaceHolder1$lstBodies"] = bodies[0] if bodies else "All Departments"
     try:
-        return get(CAL, urllib.parse.urlencode(form).encode())
+        req = urllib.request.Request(CAL, data=urllib.parse.urlencode(form).encode(),
+                                     headers={**UA, "Referer": CAL})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return r.read().decode("utf-8", "replace")
     except Exception as e:  # noqa
-        print(f"[warn] postback for {year} failed: {e}", file=sys.stderr)
+        print(f"[warn] postback for {selection!r} failed: {e}", file=sys.stderr)
         return None
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--years", nargs="*", type=int, default=[])
+    ap.add_argument("--years", nargs="*", default=["All Years"],
+                    help='dropdown selections to replay, e.g. "All Years" (default) or 2025 2026')
     ap.add_argument("--out", default="meetings")
     a = ap.parse_args()
     try:
@@ -127,11 +132,13 @@ def main():
         sys.exit(f"[fatal] cannot reach {CAL}: {e} (403 tunnel = egress policy block)")
     recs = parse_rows(base)
     for y in a.years:
-        pg = fetch_year(y, base)
+        pg = fetch_view(str(y), base)
         if pg:
-            recs += parse_rows(pg)
+            got = parse_rows(pg)
+            print(f"[info] {y!r}: {len(got)} meeting rows", file=sys.stderr)
+            recs += got
         else:
-            print(f"[warn] could not load year {y}; using default view only", file=sys.stderr)
+            print(f"[warn] could not load {y!r}; using default view only", file=sys.stderr)
     # dedupe on detail_url
     seen, uniq = set(), []
     for r in recs:
